@@ -22,6 +22,13 @@ class FM {
 
         var response = await axios.get(`/api/fm`);
         self.playlist = response.data;
+
+        if (self.playlist.songs.length === 0) {
+            // Fix empty fm list cause crash
+            self.shuffle();
+            return;
+        }
+
         self.song = self.playlist.songs[0];
         self.loading = false;
     }
